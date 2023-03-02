@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sport Chat</title>
+</head>
+<body>
+
+				<h3>Messanger</h3>
+				<form id="messForm">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" placeholder="Введите имя" class="form-control">
+					<br>
+					<label for="message">Message</label>
+					<textarea name="message" id="message" class="form-control" placeholder="Введите сообщение"></textarea>
+					<br>
+					<input type="submit" value="Отправить" class="btn btn-danger">
+				</form>
+			</div>
+			<div class="col-6">
+				<h3>Message</h3>
+				
+				<div id="all_mess"></div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		const min = 1;
+	const max = 6;
+	const random = Math.floor(Math.random() * (max - min)) + min;
+
+let alertClass;
+switch (random) {
+  case 1:
+    alertClass = 'secondary';
+    break;
+  case 2:
+    alertClass = 'danger';
+    break;
+  case 3:
+    alertClass = 'success';
+    break;
+  case 4:
+    alertClass = 'warning';
+    break;
+  case 5:
+    alertClass = 'info';
+    break;
+  case 6:
+    alertClass = 'light';
+    break;
+}
+
+const socket = io.connect();
+const form = document.querySelector("#messForm");
+const name = document.querySelector("#name");
+const textarea = document.querySelector("#message");
+const all_messages = document.querySelector("#all_mess");
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+  socket.emit('send mess', {mess: textarea.value, name: name.value, className: alertClass});
+  textarea.value = '';
+});
+
+socket.on('add mess', function(data) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("alert", "alert-" + data.className);
+  messageDiv.innerHTML = "<b>" + data.name + "</b>: " + data.mess;
+  all_messages.appendChild(messageDiv);
+});
+
+	</script>
+</body>
+</html>
