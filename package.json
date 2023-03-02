@@ -1,0 +1,30 @@
+{
+  "name": "sportapp",
+  "version": "1.0.0",
+  "description": "sport app where will translated nba results",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coprum96/sportApp.git"
+  },
+  "keywords": [
+    "sport",
+    "nba",
+    "basketball"
+  ],
+  "author": "coprum96",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coprum96/sportApp/issues"
+  },
+  "homepage": "https://github.com/coprum96/sportApp#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
+    "socket.io": "^4.6.1"
+  }
+}
